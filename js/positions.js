@@ -139,7 +139,7 @@ function getSunAzEl(utcms) {
 
 function getMoonAzEl(utcms) {
     azel = SunCalc.getMoonPosition(new Date(utcms), ATA_LAT, ATA_LON);
-    console.log("Moon: " + (180.0 + 180.0/Math.PI*azel['azimuth']) + ", " + 180.0/Math.PI*azel['altitude']);
+    //console.log("Moon: " + (180.0 + 180.0/Math.PI*azel['azimuth']) + ", " + 180.0/Math.PI*azel['altitude']);
     return [(180.0 + 180.0/Math.PI*azel['azimuth']), (180.0/Math.PI*azel['altitude'])];
 }
 
@@ -153,4 +153,9 @@ function getAngDist(az1, az2, el1, el2) {
     if(Math.abs(az1 - az2) < 1 && Math.abs(el1 - el2)) return 0.0;
 
     return 180.0/Math.PI * Math.acos( (Math.sin(toRad(el1)) * Math.sin(toRad(el2)) + Math.cos(toRad(el1)) * Math.cos(toRad(el2)) * Math.cos(toRad(az1)-toRad(az2))));
+}
+
+function getMoonRiseSet() {
+
+    return SunCalc.getMoonTimes(new Date().getTime(), ATA_LAT, ATA_LON, false);
 }

@@ -49,12 +49,6 @@ $(document).ready(function() {
 
     cancelTimers();
     initUp();
-
-    var utcms = new Date().getTime() - 3600*1000;
-    getSunAzEl(utcms);
-
-
-
 });
 
 function cancelTimers() {
@@ -127,19 +121,31 @@ function drawElevationChart(data, objectIndex) {
     var startTime = new Date().getTime();
 
     //skip Sun and moon for now
-    if(ra == -1 && dec == -1) {
+    if(ra == -1 && dec == -1 && nickname !== "moon") {
         return;
     }
 
+    if(nickname === "moon") {
+        var elevNow = getMoonAzEl(startTime);
+        for(var i = -15; i < 15; i++) {
+            var utcms = startTime + i*3600000;
+            var elev = getMoonAzEl(utcms)[1];
 
-    var elevNow = calcAzEl(startTime, ra*15, dec, ATA_LAT, ATA_LON);
-    for(var i = -15; i < 15; i++) {
-        var utcms = startTime + i*3600000;
-        var elev = calcAzEl(utcms, ra*15, dec, ATA_LAT, ATA_LON )[1];
+            if(elev < min) min = elev;
+            if(elev > max) max = elev;
+            elevs.push(elev);
+        }
+    }
+    else {
+        var elevNow = calcAzEl(startTime, ra*15, dec, ATA_LAT, ATA_LON);
+        for(var i = -15; i < 15; i++) {
+            var utcms = startTime + i*3600000;
+            var elev = calcAzEl(utcms, ra*15, dec, ATA_LAT, ATA_LON )[1];
 
-        if(elev < min) min = elev;
-        if(elev > max) max = elev;
-        elevs.push(elev);
+            if(elev < min) min = elev;
+            if(elev > max) max = elev;
+            elevs.push(elev);
+        }
     }
 
     var container = "#" + nickname;
@@ -170,19 +176,33 @@ function drawElevationChart(data, objectIndex) {
         p.classList.add('bigtext');
         textdiv.appendChild(p);
 
-        var p = document.createElement('p');
-        p.classList.add('mediumtext');
-        p.textContent = "RA: " + data['ra'] + ", Dec: " + data['dec'];
-        textdiv.appendChild(p);
+        if(nickname !== "moon") {
+            var p = document.createElement('p');
+            p.classList.add('mediumtext');
+            p.textContent = "RA: " + data['ra'] + ", Dec: " + data['dec'];
+            textdiv.appendChild(p);
+        }
 
-        var azel = calcAzEl(startTime, ra*15, dec, ATA_LAT, ATA_LON );
+        var azel = [0,0];
+        if(nickname === "moon") {
+            azel = getMoonAzEl(startTime);
+        }
+        else {
+            azel = calcAzEl(startTime, ra*15, dec, ATA_LAT, ATA_LON );
+        }
         var p = document.createElement('p');
         p.id = "azel" + nickname;
         p.classList.add('mediumtext');
         p.textContent = "Az: " + Math.round(azel[0]) + ", Elev: " + Math.round(azel[1]);
         textdiv.appendChild(p);
 
-        var riseSetString = getRiseSetString(ra, dec);
+        var riseSetString = ["",""];
+        if(nickname === "moon") {
+            riseSetString = getMoonRiseSetString();
+        }
+        else {
+            riseSetString = getRiseSetString(ra, dec);
+        }
         var p = document.createElement('p');
         p.id = "riseset1" + nickname;
         p.classList.add('mediumtext');
@@ -202,7 +222,8 @@ function drawElevationChart(data, objectIndex) {
             $("#riseset1" + nickname).css('font-weight', 'bold');
         }
 
-        var utcms = new Date().getTime() - 3600*1000;
+        //var utcms = new Date().getTime() - 3600*1000;
+        var utcms = new Date().getTime();
         var sunAzEl = getSunAzEl(utcms);
         var sunAng = Math.abs(getAngDist(azel[0], sunAzEl[0], azel[1], sunAzEl[1]));
 
@@ -222,22 +243,25 @@ function drawElevationChart(data, objectIndex) {
         }
 
         // Moon Angle
-        var utcms = new Date().getTime() - 3600*1000;
-        var moonAzEl = getMoonAzEl(utcms);
-        var moonAng = Math.abs(getAngDist(azel[0], moonAzEl[0], azel[1], moonAzEl[1]));
-        var p = document.createElement('p');
-        p.id = "moonangle" + nickname;
-        p.classList.add('mediumtext');
-        p.textContent = "Moon angle " + Math.round(moonAng) + "°";;
+        //var utcms = new Date().getTime() - 3600*1000;
+        if(nickname !== "moon") {
+            var utcms = new Date().getTime();
+            var moonAzEl = getMoonAzEl(utcms);
+            var moonAng = Math.abs(getAngDist(azel[0], moonAzEl[0], azel[1], moonAzEl[1]));
+            var p = document.createElement('p');
+            p.id = "moonangle" + nickname;
+            p.classList.add('mediumtext');
+            p.textContent = "Moon angle " + Math.round(moonAng) + "°";;
 
-        textdiv.appendChild(p);
+            textdiv.appendChild(p);
 
-        if(moonAng <= 45.0) {
-            $("#moonangle" + nickname).css('color', 'red');
-        }
-        else {
-            $("#moonangle" + nickname).css('color', 'limegreen');
-            $("#moonangle" + nickname).css('font-weight', 'bold');
+            if(moonAng <= 45.0) {
+                $("#moonangle" + nickname).css('color', 'red');
+            }
+            else {
+                $("#moonangle" + nickname).css('color', 'limegreen');
+                $("#moonangle" + nickname).css('font-weight', 'bold');
+            }
         }
 
 
@@ -368,10 +392,22 @@ function drawElevationChart(data, objectIndex) {
         $(container).highcharts().xAxis[0].options.plotLines[0].value = new Date().getTime();
         $(container).highcharts().xAxis[0].update();
 
-        var azel = calcAzEl(startTime, ra*15, dec, ATA_LAT, ATA_LON );
+        var azel = [0,0];
+        if(nickname === "moon") {
+            azel = getMoonAzEl(startTime);
+        }
+        else {
+            azel = calcAzEl(startTime, ra*15, dec, ATA_LAT, ATA_LON );
+        }
         $("#azel" + nickname).text("Az: " + Math.round(azel[0]) + ", Elev: " + Math.round(azel[1]));
 
-        var riseSetString = getRiseSetString(ra, dec);
+        var riseSetString = ["",""];
+        if(nickname === "moon") {
+            riseSetString = getMoonRiseSetString();
+        }
+        else {
+            riseSetString = getRiseSetString(ra, dec);
+        }
         $("#riseset1" + nickname).text(riseSetString[0]);
         $("#riseset2" + nickname).text(riseSetString[1]);
 
@@ -383,7 +419,7 @@ function drawElevationChart(data, objectIndex) {
             $("#riseset1" + nickname).css('font-weight', 'bold');
         }
 
-        var utcms = new Date().getTime() - 3600*1000;
+        var utcms = new Date().getTime();
         var sunAzEl = getSunAzEl(utcms);
         var sunAng = Math.abs(getAngDist(azel[0], sunAzEl[0], azel[1], sunAzEl[1]));
 
@@ -397,16 +433,18 @@ function drawElevationChart(data, objectIndex) {
             $("#sunangle" + nickname).css('font-weight', 'bold');
         }
 
-        var moonAzEl = getMoonAzEl(utcms);
-        var moonAng = Math.abs(getAngDist(azel[0], moonAzEl[0], azel[1], moonAzEl[1]));
-        $("#moonangle" + nickname).text("Moon angle " + Math.round(moonAng) + "°");
+        if(nickname !== "moon") {
+            var moonAzEl = getMoonAzEl(utcms);
+            var moonAng = Math.abs(getAngDist(azel[0], moonAzEl[0], azel[1], moonAzEl[1]));
+            $("#moonangle" + nickname).text("Moon angle " + Math.round(moonAng) + "°");
 
-        if(moonAng <= 45.0) {
-            $("#moonangle" + nickname).css('color', 'red');
-        }
-        else {
-            $("#moonangle" + nickname).css('color', 'limegreen');
-            $("#moonangle" + nickname).css('font-weight', 'bold');
+            if(moonAng <= 45.0) {
+                $("#moonangle" + nickname).css('color', 'red');
+            }
+            else {
+                $("#moonangle" + nickname).css('color', 'limegreen');
+                $("#moonangle" + nickname).css('font-weight', 'bold');
+            }
         }
 
     }
@@ -469,6 +507,61 @@ function getRiseSetString(ra, dec) {
         }
     }
     return [aboveBelowString, riseSetString];
+
+}
+
+function getMoonRiseSetString() {
+
+    var elevs = [];
+    var horizon = 30.0;
+    var numHours = 27;
+    var startTime = new Date().getTime();
+
+    var elevNow = getMoonAzEl(startTime);
+    for(var i = 0; i < numHours; i++) {
+        var utcms = startTime + i*3600000;
+        var elev = getMoonAzEl(utcms)[1];
+        elevs.push(elev);
+    }
+
+    var lastElev = -1;
+    var thisElev = -1;
+    var lastTime = -1;
+    var thisTime = -1;
+    if(elevNow >= horizon) { //Setting
+        var crossingIndex = 0;
+        for(var i = -1; i<numHours; i++) {
+            var utcms = startTime + i*3600000;
+            elev = getMoonAzEl(utcms)[1];
+            if(elev <= horizon) {
+                crossingIndex = i;
+                thisTime = utcms;
+                thisElev = elev;
+                break;
+            }
+            lastTime = utcms;
+            lastElev = elev;
+        }
+        var t = lastTime + 3600000 * (thisElev - horizon)/(thisElev - lastElev);
+        return ["Above 30°", "Sets in "  +  timespanToHourMinString((t - startTime)/1000)];
+    }
+    else { //Rising
+        var crossingIndex = 0;
+        for(var i = -1; i<numHours; i++) {
+            var utcms = startTime + i*3600000;
+            elev = getMoonAzEl(utcms)[1];
+            if(elev > horizon) {
+                crossingIndex = i;
+                thisTime = utcms;
+                thisElev = elev;
+                break;
+            }
+            lastTime = utcms;
+            lastElev = elev;
+        }
+        var t = lastTime + 3600000 * (thisElev - horizon)/(thisElev - lastElev);
+        return ["Below 30°", "Rises in "  +  timespanToHourMinString((t - startTime)/1000)];
+    }
 
 }
 
