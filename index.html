@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="css/style.css" rel="stylesheet">
+
+  <title>ATA Feed Test Info</title>
+  <meta name="viewport" content="width=320" />
+
+  <script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+  </script>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+<script>
+// Shim so we can style in IE6/7/8
+document.createElement('template');
+</script>
+
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Clients</a>
+    <a href="#">Contact</a>
+</div>
+
+<div class="topnav" id="myTopnav">
+    <a href="javascript:void(0);" class="icon" onclick="openNav()">
+        <i class="fa fa-bars"></i>
+    </a>
+    <img src="images/ata-logo-256x128-8bit.png" height="48"/>
+    <p>ATA Feed Info</p>
+</div>
+
+<div id="content_area">
+
+
+</div>
+</div>
+
+<script type="text/template" id="up-template">
+<div class="top_h1">
+<p class="top_h1">Source Rise/Set Times</p>
+<p id="up_time">Time</p>
+</div>
+</script>
+
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/underscore-min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data-2012-2022.min.js"></script>
+<script src="http://antfeeds.setiquest.info/socket.io/socket.io.js"></script>
+<script src="./js/suncalc.js"></script>
+<script src="./js/positions.js"></script>
+<script src="./js/display.js"></script>
+
+</body>
+
+</HTML>

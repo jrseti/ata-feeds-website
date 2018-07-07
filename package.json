@@ -1,0 +1,34 @@
+{
+  "name": "ata-feeds",
+  "version": "1.0.0",
+  "description": "Website to show sensor/diags/planning for the New ATA project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrseti/ata-feeds-website.git"
+  },
+  "keywords": [
+    "antennas",
+    "website"
+  ],
+  "author": "Jon Richards",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jrseti/ata-feeds-website/issues"
+  },
+  "homepage": "https://github.com/jrseti/ata-feeds-website#readme",
+  "dependencies": {
+    "highcharts": "^6.1.1",
+    "jquery": "^3.3.1",
+    "moment": "^2.22.2",
+    "socket.io": "^2.1.1",
+    "underscore": "^1.9.1",
+    "webpack-cli": "^3.0.8"
+  },
+  "devDependencies": {
+    "webpack": "^4.15.1"
+  }
+}
