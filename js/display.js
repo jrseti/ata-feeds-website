@@ -95,7 +95,7 @@ function connect()
 
     socket.on('message', function(msg){
         //location.reload();
-        window.location = "http://antfeeds.setiquest.info/up.html?" + Math.random();
+        window.location = "http://antfeeds.setiquest.info/index.html?" + Math.random();
         //location.reload();
     });
 }
