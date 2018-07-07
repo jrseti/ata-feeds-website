@@ -152,5 +152,5 @@ function getAngDist(az1, az2, el1, el2) {
     //Ψ=arccos(sinθ1sinθ2+cosθ1cosθ2cos(ϕ1−ϕ2))
     if(Math.abs(az1 - az2) < 1 && Math.abs(el1 - el2)) return 0.0;
 
-    return 180.0/Math.PI * Math.acos( (Math.sin(toRad(az1)) * Math.sin(toRad(az2)) + Math.cos(toRad(az1)) * Math.cos(toRad(az2)) * Math.cos(toRad(el1)-toRad(el2))));
+    return 180.0/Math.PI * Math.acos( (Math.sin(toRad(el1)) * Math.sin(toRad(el2)) + Math.cos(toRad(el1)) * Math.cos(toRad(el2)) * Math.cos(toRad(az1)-toRad(az2))));
 }
