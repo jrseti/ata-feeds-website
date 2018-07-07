@@ -74,7 +74,7 @@ function initUp() {
         for(var i = 0; i<skyObjects.length; i++) {
             drawElevationChart(skyObjects[i], i);
         }
-    }, 20000);
+    }, 60000);
 }
 
 function connect()
@@ -542,7 +542,7 @@ function getMoonRiseSetString() {
             lastTime = utcms;
             lastElev = elev;
         }
-        var t = lastTime + 3600000 * (thisElev - horizon)/(thisElev - lastElev);
+        var t = lastTime + 3600000 * (horizon - lastElev)/(thisElev - lastElev);
         return ["Above 30°", "Sets in "  +  timespanToHourMinString((t - startTime)/1000)];
     }
     else { //Rising
@@ -559,7 +559,7 @@ function getMoonRiseSetString() {
             lastTime = utcms;
             lastElev = elev;
         }
-        var t = lastTime + 3600000 * (thisElev - horizon)/(thisElev - lastElev);
+        var t = lastTime + 3600000 * (horizon - lastElev)/(thisElev - lastElev);
         return ["Below 30°", "Rises in "  +  timespanToHourMinString((t - startTime)/1000)];
     }
 
