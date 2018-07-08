@@ -41,14 +41,7 @@ var skyObjects = [
 $(document).ready(function() {
 
     connect();
-
-    clearDiv('content_area');
-
-    var template = _.template($("#up-template").html());
-    $('#content_area').html(template());
-
-    cancelTimers();
-    initUp();
+    displayUp();
 });
 
 function cancelTimers() {
@@ -56,8 +49,16 @@ function cancelTimers() {
     clearInterval(upTimer2);
 }
 
-function initUp() {
+function displayUp() {
 
+    closeNav();
+
+    cancelTimers();
+
+    clearDiv('content_area');
+
+    var template = _.template($("#up-template").html());
+    $('#content_area').html(template());
     upCharts = [];
 
     for(var i = 0; i<skyObjects.length; i++) {
@@ -75,6 +76,27 @@ function initUp() {
             drawElevationChart(skyObjects[i], i);
         }
     }, 60000);
+}
+
+function displayUpPlanner() {
+
+    closeNav();
+    upCharts = [];
+
+    cancelTimers();
+
+    clearDiv('content_area');
+
+    var template = _.template($("#upplanner-template").html());
+    $('#content_area').html(template());
+
+    upTimer = setInterval(function() {
+        //var t = new Date().toUTCString().replace("GMT", "UTC");
+        var t = new Date();
+        $('#up_time')[0].textContent = t;
+    }, 1000);
+
+    drawUpPlannerChart(drawUpPlannerChart);
 }
 
 function connect()
@@ -101,6 +123,9 @@ function clearDiv(divName)
     while (parentDiv.firstChild) {
         parentDiv.removeChild(parentDiv.firstChild);
     }    
+}
+
+function drawUpPlannerChart(data) {
 }
 
 function drawElevationChart(data, objectIndex) {
@@ -517,7 +542,7 @@ function getMoonRiseSetString() {
     var numHours = 27;
     var startTime = new Date().getTime();
 
-    var elevNow = getMoonAzEl(startTime);
+    var elevNow = getMoonAzEl(startTime)[1];
     for(var i = 0; i < numHours; i++) {
         var utcms = startTime + i*3600000;
         var elev = getMoonAzEl(utcms)[1];
