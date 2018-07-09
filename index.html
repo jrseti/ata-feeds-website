@@ -35,10 +35,11 @@ document.createElement('template');
 
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Clients</a>
-    <a href="#">Contact</a>
+    <a href="javascript:displayUp()">Rise/Set</a>
+    <a href="javascript:displayUpPlanner()">Up Planner</a>
+    <a href="javascript:displayPamDets()">Pam - Dets</a>
+    <a href="javascript:displayFeedSensors()">Feed Sensors</a>
+    <a href="javascript:calendar()">Obs Calendar</a>
 </div>
 
 <div class="topnav" id="myTopnav">
@@ -59,6 +60,13 @@ document.createElement('template');
 <div class="top_h1">
 <p class="top_h1">Source Rise/Set Times</p>
 <p id="up_time">Time</p>
+</div>
+</script>
+
+<script type="text/template" id="upplanner-template">
+<div class="top_h1">
+<p class="top_h1r">Source Up Times</p>
+<p id="up_time_planner">Time</p>
 </div>
 </script>
 
