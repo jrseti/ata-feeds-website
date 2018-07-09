@@ -40,8 +40,12 @@ var skyObjects = [
 
 $(document).ready(function() {
 
+    //alert($( window ).width());
+    //alert($( document ).width());
+
     connect();
-    displayUp();
+    //displayUp();
+    displayUpPlanner();
 });
 
 function cancelTimers() {
@@ -93,10 +97,11 @@ function displayUpPlanner() {
     upTimer = setInterval(function() {
         //var t = new Date().toUTCString().replace("GMT", "UTC");
         var t = new Date();
-        $('#up_time')[0].textContent = t;
+        $('#up_time_planner')[0].textContent = t;
     }, 1000);
 
-    drawUpPlannerChart(drawUpPlannerChart);
+    drawUpPlannerChart(skyObjects);
+    drawUpPlannerChart2(skyObjects);
 }
 
 function connect()
@@ -125,17 +130,284 @@ function clearDiv(divName)
     }    
 }
 
-function drawUpPlannerChart(data) {
+function drawUpPlannerChart(skyObjects) {
+
+    var horizon = 30.0;
+    var startTime = new Date().getTime();
+
+    var mySeries = [];
+    var categories = [];
+
+    //Calculate the ephem for all sky objects
+    for(var i = 0; i<skyObjects.length; i++) {
+
+        var azel = [];
+        var nickname = skyObjects[i]['nickname'];
+        var thisSeries = [];
+        if(nickname === "moon") {
+            for(var j = -1; j < 48*6; j++) {
+                var utcms = startTime + j*3600000/6;
+                var thisAzEl = getMoonAzEl(utcms);
+                azel.push(thisAzEl);
+                if(thisAzEl[1] >= 30) {
+                    thisSeries.push([utcms, i+1,thisAzEl[1]]);
+                }
+                else {
+                    thisSeries.push([utcms, null, null]);
+                }
+            }
+        }
+        else if(nickname === "sun") {
+            for(var j = -1; j < 48*6; j++) {
+                var utcms = startTime + j*3600000/6;
+                var thisAzEl = getSunAzEl(utcms);
+                azel.push(thisAzEl);
+                if(thisAzEl[1] >= 10) {
+                    thisSeries.push([utcms, i+1,thisAzEl[1]]);
+                }
+                else {
+                    thisSeries.push([utcms, null, null]);
+                }
+            }
+        }
+        else if(skyObjects[i]["ra"] != -1) {
+            var ra = skyObjects[i]["ra"];
+            var dec = skyObjects[i]["dec"];
+            for(var j = -1; j < 48*6; j++) {
+                var utcms = startTime + j*3600000/6;
+                var thisAzEl = calcAzEl(utcms, ra*15, dec, ATA_LAT, ATA_LON );
+                azel.push(thisAzEl);
+                if(thisAzEl[1] >= horizon) {
+                    //console.log(skyObjects[i]['nickname'] + " = " + thisAzEl[1]);
+                    thisSeries.push([utcms, i+1, thisAzEl[1]]);
+                }
+                else {
+                    //console.log(skyObjects[i]['nickname'] + " = null, " + thisAzEl[1]);
+                    thisSeries.push([utcms, null, null]);
+                }
+            }
+        }
+
+        skyObjects[i]['azel'] = azel;
+        skyObjects[i]['now'] = startTime;
+        if(thisSeries.length > 0) {
+            /*
+            if(skyObjects[i]['nickname'] === 'moon') {
+                for(var j = 0; j<thisSeries.length; j++) {
+                    console.log("SERIES: " + thisSeries[j]);
+                }
+            }
+            */
+            mySeries.push({ "name":skyObjects[i]['nickname'], "data": thisSeries});
+        }
+    }
+
+    var parentDiv = document.getElementById('content_area');
+    var divid = "graph1";
+    var div = document.createElement('div');
+    div.id = divid;
+    div.classList.add("graph_planner");
+    parentDiv.appendChild(div);
+
+    var container = "#" + divid;
+    $(container).highcharts( {
+
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Times Above The Horizon'
+        },
+        credits: false,
+        xAxis: {
+            type: 'datetime',
+        },
+        yAxis: {
+            min: 0,
+            max: 9,
+            title: {
+                text: 'Mouse over to see times'
+            },
+            labels: {
+                enabled: false,
+                tickInterval: 1,
+                step: 1,
+                tickPositions: [1, 2, 3, 4, ,5, 6,7,8,9],
+                style: {
+                    fontSize: '4px'
+                }
+                /*
+                formatter: function() {
+                    //console.log(this.axis);
+                    //console.log(this.axis.series);
+                    return skyObjects[Math.floor(this.value)]['nickname'];
+                }
+                */
+
+            },
+            gridLineWidth: 0,
+              minorGridLineWidth: 0
+        },
+        time: {
+            timezone: 'America/Los_Angeles'
+        },
+        tooltip: {
+            pointFormat: "{series.name}",
+            timezone: 'America/Los_Angeles',
+            xDateFormat: '%Y-%m-%d %I:%M %P'
+
+        },
+        legend: {
+            reversed: true
+        },
+        plotOptions: {
+            series: {
+                lineWidth: 15,
+                marker: {
+                    enabled: false
+                },
+            },
+            line: {
+                linecap: 'square'
+            }
+        },
+        series: mySeries
+    });
+}
+
+function drawUpPlannerChart2(skyObjects) {
+
+    var horizon = 30.0;
+    var startTime = new Date().getTime();
+
+    var mySeries = [];
+    var categories = [];
+
+    //Calculate the ephem for all sky objects
+    for(var i = 0; i<skyObjects.length; i++) {
+
+        var azel = [];
+        var nickname = skyObjects[i]['nickname'];
+        var thisSeries = [];
+        if(nickname === "moon") {
+            for(var j = -1; j < 48*6; j++) {
+                var utcms = startTime + j*3600000/6;
+                var thisAzEl = getMoonAzEl(utcms);
+                    var sunAzEl = getSunAzEl(utcms);
+                    var ang = getAngDist(thisAzEl[0], sunAzEl[0], thisAzEl[1], sunAzEl[1]);
+                if(thisAzEl[1] >= 30 && ang != 0.0) {
+                    thisSeries.push([utcms, ang]);
+                }
+                else {
+                    thisSeries.push([utcms, null]);
+                }
+            }
+        }
+        else if(nickname === "sun") {
+        }
+        else if(skyObjects[i]["ra"] != -1) {
+            var ra = skyObjects[i]["ra"];
+            var dec = skyObjects[i]["dec"];
+            for(var j = -1; j < 48*6; j++) {
+                var utcms = startTime + j*3600000/6;
+                var thisAzEl = calcAzEl(utcms, ra*15, dec, ATA_LAT, ATA_LON );
+                    var sunAzEl = getSunAzEl(utcms);
+                    var ang = getAngDist(thisAzEl[0], sunAzEl[0], thisAzEl[1], sunAzEl[1]);
+                if(thisAzEl[1] >= horizon && ang != 0.0) {
+                    console.log(skyObjects[i]['nickname'] + " = " + ang + "," + thisAzEl + "," + sunAzEl);
+                    thisSeries.push([utcms, ang]);
+                }
+                else {
+                    //console.log(skyObjects[i]['nickname'] + " = null, " + thisAzEl[1]);
+                    thisSeries.push([utcms, null]);
+                }
+            }
+        }
+
+        skyObjects[i]['now'] = startTime;
+        if(thisSeries.length > 0) {
+            /*
+            if(skyObjects[i]['nickname'] === 'moon') {
+                for(var j = 0; j<thisSeries.length; j++) {
+                    console.log("SERIES: " + thisSeries[j]);
+                }
+            }
+            */
+            mySeries.push({ "name":skyObjects[i]['nickname'], "data": thisSeries});
+        }
+    }
+
+    var parentDiv = document.getElementById('content_area');
+    var divid = "graph2";
+    var div = document.createElement('div');
+    div.id = divid;
+    div.classList.add("graph_planner");
+    parentDiv.appendChild(div);
+
+    var container = "#" + divid;
+    $(container).highcharts( {
+
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Angle from the Sun'
+        },
+        credits: false,
+        xAxis: {
+            type: 'datetime',
+        },
+        yAxis: {
+            title: {
+                text: 'Mouse over for Sun Angle'
+            },
+            labels: {
+                enabled: true,
+                /*
+                formatter: function() {
+                //console.log(this.axis);
+                //console.log(this.axis.series);
+                    return skyObjects[Math.floor(this.value)]['nickname'];
+                }
+                */
+
+            }
+        },
+        time: {
+            timezone: 'America/Los_Angeles'
+        },
+        tooltip: {
+            pointFormat: "{series.name} {point.y:.2f}° Sun Angle",
+            timezone: 'America/Los_Angeles',
+            xDateFormat: '%Y-%m-%d %I:%M %P'
+
+        },
+        legend: {
+            reversed: true
+        },
+        plotOptions: {
+            series: {
+                lineWidth: 6,
+                marker: {
+                    enabled: false
+                },
+            },
+            line: {
+                linecap: 'square'
+            }
+        },
+        series: mySeries
+    });
 }
 
 function drawElevationChart(data, objectIndex) {
 
     /*
-{ "name" : "Cassiopeia A", "nickname" : "casa", "ra" : 23.391, "dec" : 58.808, 
-  "type" : "continuum",
-  "image", "http://antfeeds.setiquest.info/images/casa.jpg"
-},
-*/
+    { "name" : "Cassiopeia A", "nickname" : "casa", "ra" : 23.391, "dec" : 58.808, 
+        "type" : "continuum",
+        "image", "http://antfeeds.setiquest.info/images/casa.jpg"
+    },
+    */
     var ra = data["ra"];
     var dec = data["dec"];
     var name = data["name"];
@@ -585,7 +857,7 @@ function getMoonRiseSetString() {
             lastElev = elev;
         }
         var t = lastTime + 3600000 * (horizon - lastElev)/(thisElev - lastElev);
-        return ["Below 30°", "Rises in "  +  timespanToHourMinString((t - startTime)/1000)];
+        return ["Below 30°", "Rises in "  +  timespanToHourMinString((startTime) - t/1000)];
     }
 
 }
