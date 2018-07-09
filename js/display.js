@@ -104,6 +104,26 @@ function displayUpPlanner() {
     drawUpPlannerChart2(skyObjects);
 }
 
+function displayFeedSensors() {
+
+    closeNav();
+    upCharts = [];
+
+    cancelTimers();
+
+    clearDiv('content_area');
+
+    var template = _.template($("#feedsensors-template").html());
+    $('#content_area').html(template());
+
+    var parentDiv = $('#content_area'); 
+    //console.log(FeedSensors);
+    FeedSensors.display(parentDiv);
+
+
+
+}
+
 function connect()
 {
     var socket = io.connect('http://antfeeds.setiquest.info',
@@ -238,15 +258,15 @@ function drawUpPlannerChart(skyObjects) {
                 }
                 /*
                 formatter: function() {
-                    //console.log(this.axis);
-                    //console.log(this.axis.series);
+                //console.log(this.axis);
+                //console.log(this.axis.series);
                     return skyObjects[Math.floor(this.value)]['nickname'];
                 }
                 */
 
             },
             gridLineWidth: 0,
-              minorGridLineWidth: 0
+            minorGridLineWidth: 0
         },
         time: {
             timezone: 'America/Los_Angeles'
@@ -293,8 +313,8 @@ function drawUpPlannerChart2(skyObjects) {
             for(var j = -1; j < 48*6; j++) {
                 var utcms = startTime + j*3600000/6;
                 var thisAzEl = getMoonAzEl(utcms);
-                    var sunAzEl = getSunAzEl(utcms);
-                    var ang = getAngDist(thisAzEl[0], sunAzEl[0], thisAzEl[1], sunAzEl[1]);
+                var sunAzEl = getSunAzEl(utcms);
+                var ang = getAngDist(thisAzEl[0], sunAzEl[0], thisAzEl[1], sunAzEl[1]);
                 if(thisAzEl[1] >= 30 && ang != 0.0) {
                     thisSeries.push([utcms, ang]);
                 }
@@ -311,10 +331,10 @@ function drawUpPlannerChart2(skyObjects) {
             for(var j = -1; j < 48*6; j++) {
                 var utcms = startTime + j*3600000/6;
                 var thisAzEl = calcAzEl(utcms, ra*15, dec, ATA_LAT, ATA_LON );
-                    var sunAzEl = getSunAzEl(utcms);
-                    var ang = getAngDist(thisAzEl[0], sunAzEl[0], thisAzEl[1], sunAzEl[1]);
+                var sunAzEl = getSunAzEl(utcms);
+                var ang = getAngDist(thisAzEl[0], sunAzEl[0], thisAzEl[1], sunAzEl[1]);
                 if(thisAzEl[1] >= horizon && ang != 0.0) {
-                    console.log(skyObjects[i]['nickname'] + " = " + ang + "," + thisAzEl + "," + sunAzEl);
+                    //console.log(skyObjects[i]['nickname'] + " = " + ang + "," + thisAzEl + "," + sunAzEl);
                     thisSeries.push([utcms, ang]);
                 }
                 else {
