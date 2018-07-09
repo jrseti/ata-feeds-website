@@ -47,6 +47,17 @@ body {
 	float: left;
 }
 
+.graph_planner {
+	width:  600px;
+	height: 400px;
+	background-color: #fff;
+	border: solid 0px #aaa;
+	border-width: 0px;
+	float: left;
+    clear: both;
+    margin-top: 30px;
+}
+
 .upinfodiv {
 	display: inline-block;
 	xwidth:  260px;
@@ -103,9 +114,20 @@ body {
         margin: 0 auto;
         width: 1240px;
     }
+
+    .graph_planner {
+        display: block;
+        width:  600px;
+        height: 400px;
+        background-color: #fff;
+        border: solid 0px #aaa;
+        border-width: 0px;
+        float: left;
+    margin-top: 30px;
+    }
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 320px) {
     #wrapper
     {
         margin: 0 auto;
@@ -127,7 +149,31 @@ body {
     .graph {
         width: 180px;
         height: 110px;
+    }
 
+    #graph1 {
+        margin-top:10px;
+        height:300px;
+        width:100%;
+        margin: 10 auto;
+    }
+    #graph2 {
+        margin-top:10px;
+        height:300px;
+        width:100%;
+        margin: 10 auto;
+        margin-bottom:20px;
+        padding-bottom:20px;
+    }
+    .graph_planner {
+        display: block;
+        margin-top:30px;
+        padding-top:0px;
+        width:  320px;
+        height: 560;
+        border: solid 0px #f44;
+        border-width: 0px;
+        clear: both;
     }
     .upinfodiv { 
         display: inline-block;
@@ -253,6 +299,12 @@ body {
     float: left;
 }
 
+#up_time_planner {
+    font-size: 18px;
+    font-weight: normal;
+    clear:both;
+    float: left;
+}
 .sidenav {
     height: 100%;
     width: 0;
