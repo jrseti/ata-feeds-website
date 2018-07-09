@@ -131,15 +131,22 @@ body {
     #wrapper
     {
         margin: 0 auto;
-        width: 380px;
+        width: 320px;
     }
 
     #content_area {
 
         margin-left:10px;
     }
+
+    #up_time {
+        font-size: 12px;
+        font-weight: normal;
+        clear:both;
+        float: left;
+    }
     .box {
-        width: 380px;
+        width: 320px;
         height: 120px;
         border: solid 0px #000;
         border-width: 0px;
@@ -147,7 +154,7 @@ body {
         clear: both;
     }
     .graph {
-        width: 180px;
+        width: 140px;
         height: 110px;
     }
 
@@ -231,6 +238,8 @@ body {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}`
 
+    .sensornav {padding-top: 15px;}
+
 }
 
 .topnav {
@@ -292,6 +301,21 @@ body {
     height: 28px;
 }
 
+.top_sensor_label {
+
+    clear: both;
+    float: left;
+    height:48px;
+    padding-top: 0px;
+    font-size: 22px;
+    font-weight: bold;
+    line-height:28px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: 28px;
+}
+
+
 #up_time {
     font-size: 18px;
     font-weight: normal;
@@ -299,12 +323,6 @@ body {
     float: left;
 }
 
-#up_time_planner {
-    font-size: 18px;
-    font-weight: normal;
-    clear:both;
-    float: left;
-}
 .sidenav {
     height: 100%;
     width: 0;
@@ -337,4 +355,130 @@ body {
     left: -5px;
     font-size: 36px;
     margin-right: 70px;
+}
+
+.sensornav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 40px;
+}
+
+.sensornav a {
+    padding: 2px 8px 2px 22px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    margin-top:0px;
+    margin-bottom:0px;
+    padding-bottom:0px;
+}
+
+.sensornav a:hover {
+    color: #f1f1f1;
+}
+
+.sensornav .closebtn {
+    position: absolute;
+    top: 0;
+    left: -5px;
+    font-size: 36px;
+    margin-right: 70px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-top:0px;
+}
+
+.sensornav h1 {
+    padding: 0px 8px 0px 12px;
+    text-decoration: none;
+    font-size: 22px;
+    color: #eee;
+    display: block;
+    transition: 0.3s;
+    font-weight: 300;
+    margin-top:0px;
+    margin-bottom:0px;
+    clear: both;
+}
+
+.sensor_select_button {
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 3px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 3px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-bottom: 14px;
+}
+
+.sensornav .okbtn {
+    position: absolute;
+    top: 8px;;
+    right: 6px;
+    font-size: 28px;
+    color: #eee;
+}
+
+.antcheckbox {
+    color: red;
+}
+
+@supports (zoom:2) {
+    input[type="radio"],  input[type=checkbox]{
+        zoom: 1.5;
+    }
+}
+@supports not (zoom:2) {
+    input[type="radio"],  input[type=checkbox]{
+        transform: scale(1.5);
+        margin: 15px;
+    }
+}
+
+
+label{
+    /* fix vertical align issues */
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 6px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #eee;
+    font-size: 18px;
+}
+
+input[type=checkbox] {
+    transform: scale(1.5);
+    margin-left: 13px;
+}
+
+.checkbox_container {
+    float: left;
+    width: 82px;
+    margin-top: 6px;
+}
+
+.checkbox_sensornames_container {
+    clear: both;
+    width: 100%;
+}
+
+.navsensorlist {
+    overflow-y: auto;
 }

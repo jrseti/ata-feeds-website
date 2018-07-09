@@ -39,6 +39,7 @@ document.createElement('template');
     <a href="javascript:displayUpPlanner()">Up Planner</a>
     <a href="javascript:displayPamDets()">Pam - Dets</a>
     <a href="javascript:displayFeedSensors()">Feed Sensors</a>
+    <a href="javascript:displayVariousSensors()">Other Sensors</a>
     <a href="javascript:calendar()">Obs Calendar</a>
 </div>
 
@@ -65,14 +66,24 @@ document.createElement('template');
 
 <script type="text/template" id="upplanner-template">
 <div class="top_h1">
-<p class="top_h1r">Source Up Times</p>
-<p id="up_time_planner">Time</p>
+<p class="top_h1">Source Up Times</p>
+<p id="up_time">Time</p>
 </div>
 </script>
 
 <script type="text/template" id="feedsensors-template">
 <div class="top_h1">
-<p class="top_h1">Feed Sensors</p>
+<p class="top_sensor_label">Sensors</p><a href="javascript:void(0)" class="sensor_select_button" onclick="FeedSensors.openNav()">Select...</a>
+
+<div id="sensornav" class="sensornav">
+    <a href="javascript:void(0)" class="closebtn" onclick="FeedSensors.closeNav()">&times;</a>
+    <a href="javascript:void(0)" class="okbtn" onclick="FeedSensors.okNav()">Ok</a>
+    <h1>Antennas</h1>
+    <div id="navantlist"></div>
+    <h1>Sensors</h1>
+    <div id="navsensorlist"></div>
+</div>
+
 </div>
 </script>
 <script src="js/jquery-3.3.1.min.js"></script>

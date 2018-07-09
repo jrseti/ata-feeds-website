@@ -45,7 +45,8 @@ $(document).ready(function() {
 
     connect();
     //displayUp();
-    displayUpPlanner();
+    //displayUpPlanner();
+    displayFeedSensors();
 });
 
 function cancelTimers() {
@@ -72,8 +73,10 @@ function displayUp() {
 
     upTimer = setInterval(function() {
         //var t = new Date().toUTCString().replace("GMT", "UTC");
-        var t = new Date();
-        $('#up_time')[0].textContent = t;
+        var t = new Date().toString();
+        var n = t.indexOf('(');
+        var s = t.substring(0, n != -1 ? n : t.length);
+        $('#up_time')[0].textContent = s;
     }, 1000);
     upTimer2 = setInterval(function() {
         for(var i = 0; i<skyObjects.length; i++) {
@@ -96,8 +99,10 @@ function displayUpPlanner() {
 
     upTimer = setInterval(function() {
         //var t = new Date().toUTCString().replace("GMT", "UTC");
-        var t = new Date();
-        $('#up_time_planner')[0].textContent = t;
+        var t = new Date().toString();
+        var n = t.indexOf('(');
+        var s = t.substring(0, n != -1 ? n : t.length);
+        $('#up_time')[0].textContent = s;
     }, 1000);
 
     drawUpPlannerChart(skyObjects);
@@ -118,10 +123,26 @@ function displayFeedSensors() {
 
     var parentDiv = $('#content_area'); 
     //console.log(FeedSensors);
-    FeedSensors.display(parentDiv);
+    $('.top_sensor_label')[0].textContent = "Feed Sensors";
+    FeedSensors.display(FeedSensors.FEED_SENSORS(), parentDiv);
+}
 
+function displayVariousSensors() {
 
+    closeNav();
+    upCharts = [];
 
+    cancelTimers();
+
+    clearDiv('content_area');
+
+    var template = _.template($("#feedsensors-template").html());
+    $('#content_area').html(template());
+
+    var parentDiv = $('#content_area'); 
+    $('.top_sensor_label')[0].textContent = "Other Sensors";
+    //console.log(FeedSensors);
+    FeedSensors.display(FeedSensors.VARIOUS_SENSORS(), parentDiv);
 }
 
 function connect()
