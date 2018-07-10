@@ -186,6 +186,14 @@ body {
         margin-bottom:20px;
         padding-bottom:20px;
     }
+    #graph3 {
+        margin-top:10px;
+        height:310px;
+        width:100%;
+        margin: 10 auto;
+        margin-bottom:20px;
+        padding-bottom:20px;
+    }
     .graph_planner {
         display: block;
         margin-top:30px;
