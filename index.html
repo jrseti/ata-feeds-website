@@ -38,7 +38,7 @@ document.createElement('template');
     <a href="javascript:displayUp()">Rise/Set</a>
     <a href="javascript:displayUpPlanner()">Up Planner</a>
     <a href="javascript:displayPamDets()">Pam - Dets</a>
-    <a href="javascript:displayFeedSensors()">Feed Sensors</a>
+    <a href="javascript:displayFeedSensors()">New Feed Sensors</a>
     <a href="javascript:displayVariousSensors()">Other Sensors</a>
     <a href="javascript:calendar()">Obs Calendar</a>
 </div>
@@ -75,6 +75,12 @@ document.createElement('template');
 <div class="top_h1">
 <p class="top_sensor_label">Sensors</p><a href="javascript:void(0)" class="sensor_select_button" onclick="FeedSensors.openNav()">Select...</a>
 
+<div class='sensor_message'> 
+  <p>Please press the Select button and select antennas and variables to view....<br>
+  New feed names are in capital letters, 1a vs. 4J.<br>
+  The new feeds are:<br>&nbsp;&nbsp;1c,1e,1g,1h,1k,<br>&nbsp;&nbsp;2a,2b,2e,2h,2j,2m,<br>&nbsp;&nbsp;3c,3d,3l,<br>&nbsp;&nbsp;4j,<br>&nbsp;&nbsp;5b</p>
+</div>
+
 <div id="sensornav" class="sensornav">
     <a href="javascript:void(0)" class="closebtn" onclick="FeedSensors.closeNav()">&times;</a>
     <a href="javascript:void(0)" class="okbtn" onclick="FeedSensors.okNav()">Ok</a>
@@ -82,6 +88,8 @@ document.createElement('template');
     <div id="navantlist"></div>
     <h1>Sensors</h1>
     <div id="navsensorlist"></div>
+    <h1>Years</h1>
+    <form id="navyearlist"></form>
 </div>
 
 </div>

@@ -123,7 +123,7 @@ function displayFeedSensors() {
 
     var parentDiv = $('#content_area'); 
     //console.log(FeedSensors);
-    $('.top_sensor_label')[0].textContent = "Feed Sensors";
+    $('.top_sensor_label')[0].textContent = "New Feed Sensors";
     FeedSensors.display(FeedSensors.FEED_SENSORS(), parentDiv);
 }
 

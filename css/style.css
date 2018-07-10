@@ -58,6 +58,20 @@ body {
     margin-top: 30px;
 }
 
+.graph_sensor {
+	width:  250px;
+	height: 200px;
+	background-color: #fff;
+	border: solid 0px #aaa;
+	border-width: 0px;
+	float: left;
+    margin-top: 20px;
+}
+
+.just_clear_both {
+    clear: both
+}
+
 .upinfodiv {
 	display: inline-block;
 	xwidth:  260px;
@@ -131,7 +145,7 @@ body {
     #wrapper
     {
         margin: 0 auto;
-        width: 320px;
+        width: 310px;
     }
 
     #content_area {
@@ -182,6 +196,17 @@ body {
         border-width: 0px;
         clear: both;
     }
+
+    .graph_sensor {
+        width:  280px;
+        height: 200px;
+        background-color: #fff;
+        border: solid 0px #aaa;
+        border-width: 0px;
+        float: left;
+        margin-top: 20px;
+    }
+
     .upinfodiv { 
         display: inline-block;
         float: left;
@@ -239,6 +264,16 @@ body {
     .sidenav a {font-size: 18px;}`
 
     .sensornav {padding-top: 15px;}
+
+    .topnav .icon {
+        float: left;
+        right: 0;
+        margin-left: -10px;
+        top: 14px;
+    }
+    .sensor_message {
+        width: 290px;
+    }
 
 }
 
@@ -358,7 +393,7 @@ body {
 }
 
 .sensornav {
-    height: 100%;
+    height: 90%;
     width: 0;
     position: fixed;
     z-index: 1;
@@ -368,6 +403,7 @@ body {
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 40px;
+    margin-bottom: 30px;
 }
 
 .sensornav a {
@@ -468,9 +504,13 @@ input[type=checkbox] {
     margin-left: 13px;
 }
 
+input[type=radio] {
+    transform: scale(1.5);
+    margin-left: 13px;
+}
 .checkbox_container {
     float: left;
-    width: 82px;
+    width: 88px;
     margin-top: 6px;
 }
 
@@ -481,4 +521,40 @@ input[type=checkbox] {
 
 .navsensorlist {
     overflow-y: auto;
+}
+
+.navyearlist {
+    overflow-y: auto;
+}
+.no_data_text {
+    position:relative; 
+    left:0px; 
+    top:0px; 
+}
+
+.ant_label {
+    float: left;
+    clear: both;
+    height: 18px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.sensor_message p {
+    font-weight: normal;
+    font-size: 22px;
+    clear: both;
+}
+
+.year_label {
+    float: left;
+    clear: both;
+    height: 16px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-size: 18px;
 }
