@@ -107,6 +107,7 @@ function displayUpPlanner() {
 
     drawUpPlannerChart(skyObjects);
     drawUpPlannerChart2(skyObjects);
+    drawUpPlannerChart3(skyObjects);
 }
 
 function displayFeedSensors() {
@@ -419,6 +420,131 @@ function drawUpPlannerChart2(skyObjects) {
         },
         tooltip: {
             pointFormat: "{series.name} {point.y:.2f}° Sun Angle",
+            timezone: 'America/Los_Angeles',
+            xDateFormat: '%Y-%m-%d %I:%M %P'
+
+        },
+        legend: {
+            reversed: true
+        },
+        plotOptions: {
+            series: {
+                lineWidth: 6,
+                marker: {
+                    enabled: false
+                },
+            },
+            line: {
+                linecap: 'square'
+            }
+        },
+        series: mySeries
+    });
+}
+
+function drawUpPlannerChart3(skyObjects) {
+
+    var horizon = 30.0;
+    var startTime = new Date().getTime();
+
+    var mySeries = [];
+    var categories = [];
+
+    //Calculate the ephem for all sky objects
+    for(var i = 0; i<skyObjects.length; i++) {
+
+        var azel = [];
+        var nickname = skyObjects[i]['nickname'];
+        var thisSeries = [];
+        if(nickname === "sun") {
+            for(var j = -1; j < 48*6; j++) {
+                var utcms = startTime + j*3600000/6;
+                var thisAzEl = getSunAzEl(utcms);
+                var sunAzEl = getMoonAzEl(utcms);
+                var ang = getAngDist(thisAzEl[0], sunAzEl[0], thisAzEl[1], sunAzEl[1]);
+                if(thisAzEl[1] >= 30 && ang != 0.0) {
+                    thisSeries.push([utcms, ang]);
+                }
+                else {
+                    thisSeries.push([utcms, null]);
+                }
+            }
+        }
+        else if(nickname === "sun") {
+        }
+        else if(skyObjects[i]["ra"] != -1) {
+            var ra = skyObjects[i]["ra"];
+            var dec = skyObjects[i]["dec"];
+            for(var j = -1; j < 48*6; j++) {
+                var utcms = startTime + j*3600000/6;
+                var thisAzEl = calcAzEl(utcms, ra*15, dec, ATA_LAT, ATA_LON );
+                var sunAzEl = getMoonAzEl(utcms);
+                var ang = getAngDist(thisAzEl[0], sunAzEl[0], thisAzEl[1], sunAzEl[1]);
+                if(thisAzEl[1] >= horizon && ang != 0.0) {
+                    //console.log(skyObjects[i]['nickname'] + " = " + ang + "," + thisAzEl + "," + sunAzEl);
+                    thisSeries.push([utcms, ang]);
+                }
+                else {
+                    //console.log(skyObjects[i]['nickname'] + " = null, " + thisAzEl[1]);
+                    thisSeries.push([utcms, null]);
+                }
+            }
+        }
+
+        skyObjects[i]['now'] = startTime;
+        if(thisSeries.length > 0) {
+            /*
+            if(skyObjects[i]['nickname'] === 'moon') {
+                for(var j = 0; j<thisSeries.length; j++) {
+                    console.log("SERIES: " + thisSeries[j]);
+                }
+            }
+            */
+            mySeries.push({ "name":skyObjects[i]['nickname'], "data": thisSeries});
+        }
+    }
+
+    var parentDiv = document.getElementById('content_area');
+    var divid = "graph3";
+    var div = document.createElement('div');
+    div.id = divid;
+    div.classList.add("graph_planner");
+    parentDiv.appendChild(div);
+
+    var container = "#" + divid;
+    $(container).highcharts( {
+
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Angle from the Moon'
+        },
+        credits: false,
+        xAxis: {
+            type: 'datetime',
+        },
+        yAxis: {
+            title: {
+                text: 'Mouse over for Moon Angle'
+            },
+            labels: {
+                enabled: true,
+                /*
+                formatter: function() {
+                //console.log(this.axis);
+                //console.log(this.axis.series);
+                    return skyObjects[Math.floor(this.value)]['nickname'];
+                }
+                */
+
+            }
+        },
+        time: {
+            timezone: 'America/Los_Angeles'
+        },
+        tooltip: {
+            pointFormat: "{series.name} {point.y:.2f}° Moon Angle",
             timezone: 'America/Los_Angeles',
             xDateFormat: '%Y-%m-%d %I:%M %P'
 
