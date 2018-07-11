@@ -44,11 +44,11 @@ $(document).ready(function() {
     //alert($( document ).width());
 
     connect();
-    //displayUp();
+    displayUp();
     //displayUpPlanner();
     //displayFeedSensors();
     //displayFeedStatus();
-    displayPamDets();
+    //displayPamDets();
 });
 
 function cancelTimers() {
@@ -177,6 +177,22 @@ function displayPamDets() {
 
     var parentDiv = $('#content_area'); 
     PamDets.display(parentDiv);
+}
+
+function displaySEFD() {
+
+    closeNav();
+    upCharts = [];
+
+    cancelTimers();
+
+    clearDiv('content_area');
+
+    var template = _.template($("#sefd-template").html());
+    $('#content_area').html(template());
+
+    var parentDiv = $('#content_area'); 
+    SEFD.display(parentDiv);
 }
 
 function connect()

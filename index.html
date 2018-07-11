@@ -41,6 +41,7 @@ document.createElement('template');
     <a href="javascript:displayFeedSensors()">New Feed Sensors</a>
     <a href="javascript:displayVariousSensors()">Other Sensors</a>
     <a href="javascript:displayFeedStatus()">Feed Status</a>
+    <a href="javascript:displaySEFD()">SEFD Report</a>
 </div>
 
 <div class="topnav" id="myTopnav">
@@ -76,7 +77,7 @@ document.createElement('template');
 <p class="top_sensor_label">Sensors</p><a href="javascript:void(0)" class="sensor_select_button" onclick="FeedSensors.openNav()">Select...</a>
 
 <div class='sensor_message'> 
-  <p>Please press the Select button and select antennas and variables to view....<br>
+  <p>Please press the Select button and select antennas and sensors to view....<br>
   New feed names are in capital letters, 1a vs. 4J.<br>
   The new feeds are:<br>&nbsp;&nbsp;1c,1e,1g,1h,1k,<br>&nbsp;&nbsp;2a,2b,2e,2h,2j,2m,<br>&nbsp;&nbsp;3c,3d,3l,<br>&nbsp;&nbsp;4j,<br>&nbsp;&nbsp;5b</p>
 </div>
@@ -109,6 +110,14 @@ document.createElement('template');
 </div>
 </script>
 
+<script type="text/template" id="sefd-template">
+<div class="top_h1">
+<p class="top_h1">SEFD Reports</p>
+<p id="up_time" style="width: 90%; display: inline-block;">.....Jon is working on this......</p>
+</div>
+</script>
+
+
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/underscore-min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -120,6 +129,7 @@ document.createElement('template');
 <script src="./js/feedstatus.js"></script>
 <script src="./js/feedsensors.js"></script>
 <script src="./js/pamdets.js"></script>
+<script src="./js/sefd.js"></script>
 <script src="./js/display.js"></script>
 
 </body>

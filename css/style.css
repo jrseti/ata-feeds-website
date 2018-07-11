@@ -611,6 +611,7 @@ input[type=radio] {
 
 .pamdet_img {
     width:  90%;
+    max-width: 600px;
     background-color: #fff;
     border: solid 0px #aaa;
     border-width: 0px;
