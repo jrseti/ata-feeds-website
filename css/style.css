@@ -46,6 +46,16 @@ body {
 	border-width: 0px;
 	float: left;
 }
+.pamdet_graph {
+	width:  280px;
+	height: 220px;
+	background-color: #fff;
+	border: solid 1px #aaa;
+	border-width: 1px;
+	float: left;
+    margin-top:30px;
+}
+
 
 .graph_planner {
 	width:  600px;
@@ -282,6 +292,25 @@ body {
     .sensor_message {
         width: 290px;
     }
+
+    .pamdet_graph {
+        width:  90%;
+        height: 280px;
+        background-color: #fff;
+        border: solid 0px #aaa;
+        border-width: 0px;
+        float: left;
+    }
+
+    .pamdet_img {
+        width:  90%;
+        background-color: #fff;
+        border: solid 0px #aaa;
+        border-width: 0px;
+        float: left;
+        margin-top: 60px;
+    }
+
 
 }
 
@@ -565,4 +594,26 @@ input[type=radio] {
     padding-top: 0px;
     padding-bottom: 0px;
     font-size: 18px;
+}
+
+.problems_text {
+
+    width: 90%;
+
+}
+
+.spacer_div {
+    width: 90&;
+    height: 10px;
+    float: left;
+    clear: both;
+}
+
+.pamdet_img {
+    width:  90%;
+    background-color: #fff;
+    border: solid 0px #aaa;
+    border-width: 0px;
+    float: left;
+    margin-top: 60px;
 }

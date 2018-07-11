@@ -40,7 +40,7 @@ document.createElement('template');
     <a href="javascript:displayPamDets()">Pam - Dets</a>
     <a href="javascript:displayFeedSensors()">New Feed Sensors</a>
     <a href="javascript:displayVariousSensors()">Other Sensors</a>
-    <a href="javascript:calendar()">Obs Calendar</a>
+    <a href="javascript:displayFeedStatus()">Feed Status</a>
 </div>
 
 <div class="topnav" id="myTopnav">
@@ -94,6 +94,21 @@ document.createElement('template');
 
 </div>
 </script>
+
+<script type="text/template" id="ataproblems-template">
+<div class="top_h1">
+<p class="top_h1">Dish status changes</p>
+<p id="up_time">Reverse chronolgical order</p>
+</div>
+</script>
+
+<script type="text/template" id="pamdets-template">
+<div class="top_h1">
+<p class="top_h1">PAM Detectors</p>
+<p id="up_time" style="width: 90%; display: inline-block;">Measured the PAM detector while setting the PAMs from 0 to 63dB.</p>
+</div>
+</script>
+
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/underscore-min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -102,7 +117,9 @@ document.createElement('template');
 <script src="http://antfeeds.setiquest.info/socket.io/socket.io.js"></script>
 <script src="./js/suncalc.js"></script>
 <script src="./js/positions.js"></script>
+<script src="./js/feedstatus.js"></script>
 <script src="./js/feedsensors.js"></script>
+<script src="./js/pamdets.js"></script>
 <script src="./js/display.js"></script>
 
 </body>

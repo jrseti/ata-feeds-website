@@ -46,7 +46,9 @@ $(document).ready(function() {
     connect();
     //displayUp();
     //displayUpPlanner();
-    displayFeedSensors();
+    //displayFeedSensors();
+    //displayFeedStatus();
+    displayPamDets();
 });
 
 function cancelTimers() {
@@ -128,6 +130,21 @@ function displayFeedSensors() {
     FeedSensors.display(FeedSensors.FEED_SENSORS(), parentDiv);
 }
 
+function displayFeedStatus() {
+
+    closeNav();
+    upCharts = [];
+
+    cancelTimers();
+
+    clearDiv('content_area');
+
+    var template = _.template($("#ataproblems-template").html());
+    $('#content_area').html(template());
+
+    var parentDiv = $('#content_area'); 
+    FeedStatus.display(parentDiv);
+}
 function displayVariousSensors() {
 
     closeNav();
@@ -144,6 +161,22 @@ function displayVariousSensors() {
     $('.top_sensor_label')[0].textContent = "Other Sensors";
     //console.log(FeedSensors);
     FeedSensors.display(FeedSensors.VARIOUS_SENSORS(), parentDiv);
+}
+
+function displayPamDets() {
+
+    closeNav();
+    upCharts = [];
+
+    cancelTimers();
+
+    clearDiv('content_area');
+
+    var template = _.template($("#pamdets-template").html());
+    $('#content_area').html(template());
+
+    var parentDiv = $('#content_area'); 
+    PamDets.display(parentDiv);
 }
 
 function connect()
