@@ -235,7 +235,7 @@
             var divid = "sefd_image" + i;
             var div = document.createElement('img');
             div.id = divid;
-            div.src="sefd/" + pngs[i];
+            div.src="sefd/" + pngs[i] + "?" + Math.random();
             div.classList.add("sefd_images");
             div.classList.add("just_clear_both");
             parentDiv.appendChild(div);
