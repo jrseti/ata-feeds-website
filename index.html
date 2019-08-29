@@ -35,13 +35,16 @@ document.createElement('template');
 
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="http://antfeeds.setiquest.info/grafana/d/4YbSMt6mz/cryo-health?orgId=1&from=now-2d&to=now" target="_grafana">Sensors/Grafana</a>
     <a href="javascript:displayUp()">Rise/Set</a>
     <a href="javascript:displayUpPlanner()">Up Planner</a>
-    <a href="javascript:displayPamDets()">Pam - Dets</a>
-    <a href="javascript:displayFeedSensors()">New Feed Sensors</a>
-    <a href="javascript:displayVariousSensors()">Other Sensors</a>
+    <!-- a href="javascript:displayPamDets()">Pam - Dets</a -->
+    <!-- a href="javascript:displayFeedSensors()">New Feed Sensors</a -->
+    <!-- a href="javascript:displayVariousSensors()">Other Sensors</a -->
     <a href="javascript:displayFeedStatus()">Feed Status</a>
     <a href="javascript:displaySEFD()">SEFD Report</a>
+    <a href="http://antfeeds.setiquest.info/latest_sefds_moon.html" target="_moon_sefds">Moon SEFds</a>
+    <a href="http://antfeeds.setiquest.info/latest_sefds_casa.html" target="_casa_sefds">CasA SEFds</a>
 </div>
 
 <div class="topnav" id="myTopnav">
@@ -110,10 +113,38 @@ document.createElement('template');
 </div>
 </script>
 
+<script type="text/template" id="attenuator_settings-template">
+<div class="atten_h1">
+<p class="atten_h1">Attenuator Settings
+ - Results of automatic adjustments of Mini-Circuits attenuator settings. The goal was to adjust the attenuation to a level that produces a 12 rms signal into the SNAP. Note that 8 of the feeds do not have a Mini-Circuits attenuator, thus the PAMS were adjusted instead.</p>
+</div>
+</script>
+
 <script type="text/template" id="sefd-template">
-<div class="top_h1">
-<p class="top_h1">SEFD Reports</p>
-<p id="up_time" style="width: 90%; display: inline-block;">.....Jon is working on this......</p>
+<div class="xtop_h1">
+<p class="sefd_top_h1">SEFD Reports</p>
+<p class="clear_both sefd_top_p">New feeds are: 1c,1e,1g,1h,1k,2a,2b,2e,2h,2j,2m,3c,3d,3l,4j,5b </p>
+<p class="sefd_top_p green_text">SNAP0: 2a,2b,2e,3l,5c,4l,4g</p>
+<p class="sefd_top_p blue_text">SNAP1: 2j,2d,4k,1d,2f,5h,3j,3e</p>
+<p class="sefd_top_p black_text">SNAP2: 1a,1b,1g,1h,2k,2m,3d,4j,5e,2c,4e,2l,2h,5g</p>
+<p class="sefd_top_p">Select a data point and the graphs will pop up. Click on the popped up graph to remove it from the display.</p>
+<!--p id="up_time" style="width: 300px; display: inline-block;"><a href='http://antfeeds.setiquest.info/sefd/sefd.csv'>Dowbload CSV...</a></p --!>
+<div id="sefd_sidebar" class="sefd_sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="SEFD.closeNav()">&times;</a>
+    <div id="sefd_images" class="sefd_images">
+    </div>
+</div>
+</div>
+</script>
+
+<script type="text/template" id="sefd3-template">
+<div class="xtop_h1">
+<p class="sefd_top_h1">SEFD Reports</p>
+<div id="sefd_sidebar" class="sefd_sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="SEFD.closeNav()">&times;</a>
+    <div id="sefd_images" class="sefd_images">
+    </div>
+</div>
 </div>
 </script>
 
@@ -130,7 +161,9 @@ document.createElement('template');
 <script src="./js/feedsensors.js"></script>
 <script src="./js/pamdets.js"></script>
 <script src="./js/sefd.js"></script>
-<script src="./js/display.js"></script>
+<script src="./js/atten_settings.js"></script>
+<script src="./js/long.js"></script>
+<script src="./js/display2.js"></script>
 
 </body>
 

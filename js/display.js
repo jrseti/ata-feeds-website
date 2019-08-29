@@ -12,6 +12,10 @@ var skyObjects = [
         "type" : "continuum",
         "image": "http://antfeeds.setiquest.info/images/taua.jpg"
     },
+    { "name" : "Cygnus A", "nickname" : "cyga", "ra" : 19.991, "dec" : 40.734, 
+        "type" : "continuum",
+        "image": "http://antfeeds.setiquest.info/images/taua.jpg"
+    },
     { "name" : "Virgo A", "nickname" : "vira", "ra" : 12.514, "dec" : 12.391, 
         "type" : "continuum",
         "image": "http://antfeeds.setiquest.info/images/vira.png"
@@ -43,17 +47,35 @@ $(document).ready(function() {
     //alert($( window ).width());
     //alert($( document ).width());
 
-    connect();
-    displayUp();
+    //connect();
+    //displayUp();
+    //displayAttenSettings()
     //displayUpPlanner();
     //displayFeedSensors();
     //displayFeedStatus();
     //displayPamDets();
+    //displaySEFD3()
+    displayLONG()
 });
 
 function cancelTimers() {
     clearInterval(upTimer);
     clearInterval(upTimer2);
+}
+
+function displayAttenSettings() {
+
+    closeNav();
+
+    cancelTimers();
+
+    clearDiv('content_area');
+
+    var template = _.template($("#attenuator_settings-template").html());
+    $('#content_area').html(template());
+
+    var parentDiv = $('#content_area');
+    AttenSettings.display(parentDiv);
 }
 
 function displayUp() {
@@ -194,6 +216,39 @@ function displaySEFD() {
     var parentDiv = $('#content_area'); 
     SEFD.display(parentDiv);
 }
+
+function displaySEFD3() {
+
+    closeNav();
+    upCharts = [];
+
+    cancelTimers();
+
+    clearDiv('content_area');
+
+    var template = _.template($("#sefd3-template").html());
+    $('#content_area').html(template());
+
+    var parentDiv = $('#content_area'); 
+    SEFD3.display(parentDiv);
+}
+
+function displayLONG() {
+
+    closeNav();
+    upCharts = [];
+
+    cancelTimers();
+
+    clearDiv('content_area');
+
+    var template = _.template($("#sefd3-template").html());
+    $('#content_area').html(template());
+
+    var parentDiv = $('#content_area'); 
+    LONG.display(parentDiv);
+}
+
 
 function connect()
 {

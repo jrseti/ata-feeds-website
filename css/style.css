@@ -56,6 +56,25 @@ body {
     margin-top:30px;
 }
 
+.pamdet_graph3 {
+	width:  580px;
+	height: 320px;
+	background-color: #fff;
+	border: solid 1px #aaa;
+	border-width: 1px;
+	float: left;
+    margin-top:30px;
+}
+
+.long_graph {
+	width:  100%;
+	height: 400px;
+	background-color: #fff;
+	border: solid 0px #aaa;
+	border-width: 0px;
+	float: left;
+    margin-top:30px;
+}
 
 .graph_planner {
 	width:  600px;
@@ -133,6 +152,15 @@ body {
 }
 
 @media screen and (min-width: 1240px) {
+    .atten_settings {
+
+        width: 1100px;
+        clear: both;
+        margin-left: -380px;
+        #margin-right: -100px;
+
+    }
+
     #wrapper
     {
         margin: 0 auto;
@@ -147,8 +175,9 @@ body {
         border: solid 0px #aaa;
         border-width: 0px;
         float: left;
-    margin-top: 30px;
+        margin-top: 30px;
     }
+
 }
 
 @media screen and (max-width: 320px) {
@@ -311,6 +340,17 @@ body {
         margin-top: 60px;
     }
 
+    .sefd_sidebar .width {
+        width: 360px;
+    }
+
+
+    .sefd_sidebar img {
+
+        width: 95%;
+        margin-left: 0px;
+
+    }
 
 }
 
@@ -618,3 +658,114 @@ input[type=radio] {
     float: left;
     margin-top: 60px;
 }
+
+.sefd_sidebar {
+    xheight: 90%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #999;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    display: block;
+}
+
+.sefd_sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sefd_sidebar a:hover {
+    color: #f1f1f1;
+}
+
+
+.sefd_sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    left: -5px;
+    font-size: 36px;
+    margin-right: 70px;
+}
+.sefd_sidebar .sefd_images {
+
+    width: 90%;
+    margin-left: 23px;
+
+}
+
+.sefd_sidebar .width {
+    width: 360px;
+}
+
+.sefd_sidebar .width0 {
+    width: 0px;
+}
+
+.sefd_top_drop {
+    margin-top: 10px;
+}
+
+.sefd_top_p {
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.sefd_top_h1 {
+
+    clear: both;
+    float: left;
+    height:28px;
+    padding-top: 0px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.red_text {
+    color: red;
+}
+.green_text {
+    color: green;
+}
+.blue_text {
+    color: blue;
+}
+.black_text {
+    color: black;
+}
+.ant_label {
+    float: left;
+    clear: both;
+    height: 16px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-size: 18px;
+}
+
+.atten_settings {
+
+    width: 1200px;
+    clear: both;
+    margin-left: -0px;
+    #margin-right: -100px;
+
+}
+
+.atten_h1 {
+
+    clear: both;
+    float: left;
+    height:88px;
+    width: 800px;
+    padding-top: 0px;
+}
+
