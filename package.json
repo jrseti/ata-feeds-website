@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/jrseti/ata-feeds-website#readme",
   "dependencies": {
-    "highcharts": "^6.1.1",
+    "highcharts": "^9.0.0",
     "jquery": "^3.3.1",
     "moment": "^2.22.2",
     "socket.io": "^2.1.1",
