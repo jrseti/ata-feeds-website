@@ -26,9 +26,9 @@
     "moment": "^2.22.2",
     "socket.io": "^2.1.1",
     "underscore": "^1.9.1",
-    "webpack-cli": "^3.0.8"
+    "webpack-cli": "^5.0.1"
   },
   "devDependencies": {
-    "webpack": "^4.15.1"
+    "webpack": "^5.75.0"
   }
 }
